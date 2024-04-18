@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StarWars Duelo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .blue-shadow { box-shadow: 0px 0px 10px 1px rgba(59, 130, 246);}
+      .red-shadow { box-shadow: 0px 0px 10px 1px rgba(239, 68, 68);}
+      .NomeDoDesafiante { animation: DownSlide 2s both;}
+      .duelar-button {  animation: UpSlide 2.7s both;}
+      .jedi { animation: LeftSlide 1.5s ease-in-out;}
+      .sith { animation: RightSlide 1.5s ease-in-out;}
+      .title {  animation: DownSlideTitle 1.5s both;}
+      .slide-in { animation: DownSlideTitle 1.5s ease-in-out; opacity: 1; }
+
+      /* Key frames / Animaçoes */
+      @keyframes UpSlide {
+        0% {
+          transform: translateY(70px);
+          opacity: 0;
+        }
+        50% {
+          transform: translateY(70px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      @keyframes DownSlide {
+        0% {
+          transform: translateY(-30px);
+          opacity: 0;
+        }
+        50% {
+          transform: translateY(-30px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      @keyframes DownSlideTitle {
+        0% {
+          transform: translateY(-30px);
+          opacity: 0;
+        }
+
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      @keyframes LeftSlide {
+        0% {
+          transform: translateX(-30px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      @keyframes RightSlide {
+        0% {
+          transform: translateX(30px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 flex justify-center items-center h-screen">
+    <main class="border rounded-md border-gray-800 p-6 shadow-xl">
+      <h1 class="text-center text-4xl font-bold text-white mb-4 title">
+        Star Wars
+      </h1>
+
+      <div class="container flex gap-4">
+        <div class="jedi flex flex-col text-white bg-gray-800 hover:bg-gray-700 p-4 content-center justify-center items-center rounded-md gap-2">
+          <div class="flex content-center justify-center items-center gap-2">
+            <img
+              class="rounded-full border-2 object-cover h-20 w-20 flex-shrink-0 mx-auto"
+              id="j-img"/>
+            <p class="text-center font-bold NomeDoDesafiante " id="NomeJedi" style="display: none;" ></p>
+          </div>
+          <div class="pontuacao" id="jedi">
+            <span class="text-center font-bold">
+              <span class="font-normal" id="TipoJedi"></span></span>
+
+            <span class="text-center font-bold">
+              <span id="ForcaJedi" class="font-normal"></span>
+            </span>
+          </div>
+        </div>
+
+        <div class="sith as flex flex-col text-white bg-gray-800 hover:bg-gray-700 p-4 content-center justify-center items-center rounded-md gap-2">
+          <div class="flex content-center justify-center items-center gap-2">
+            <img class="rounded-full border-2 object-cover h-20 w-20" id="s-img" />
+            <p class="text-center font-bold NomeDoDesafiante" id="NomeSith" style="display: none;"></p>
+          </div>
+          <div class="pontuacao" id="sith">
+            <span class="text-center font-bold">
+              <span id="TipoSith" class="font-normal"></span>
+            </span>
+            <span class="text-center font-bold">
+              <span id="ForcaSith" class="font-normal"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="container flex mt-4">
+        <button
+          class="bg-green-700 hover:bg-green-500 text-white font-bold p-2 rounded-md w-full shadow duelar-button"
+          onclick="Duelar()">
+          <i class="bi bi-repeat"></i> Duelar
+        </button>
+      </div>
+    </main>
+
+    <script type="text/javascript">
+      function Personagem(Tipo, Nome, Avatar, Color, Forca) {
+        this.Tipo = Tipo;
+        this.Nome = Nome;
+        this.Avatar = Avatar;
+        this.Color = Color;
+        this.Forca = Forca;
+      }
+
+      function DefinirForca() {
+        var minhaForca = 0;
+        for (var i = 0; i < 3; i++) {
+          minhaForca += Math.floor(Math.random() * 6 + 1);
+        }
+        return minhaForca;
+      }
+      var NomeJedi = document.getElementById("NomeJedi");
+      var TipoJedi = document.getElementById("TipoJedi");
+      var ColorJedi = document.getElementById("j-img");
+      var ForcaJedi = document.getElementById("ForcaJedi");
+
+      var NomeSith = document.getElementById("NomeSith");
+      var TipoSith = document.getElementById("TipoSith");
+      var ColorSith = document.getElementById("s-img");
+      var ForcaSith = document.getElementById("ForcaSith");
+
+      var j = new Personagem(
+        "Jedi",
+        "Obi-Wam",
+        "./src/Obi-wan.jpeg",
+        "border-red-500",
+        DefinirForca()
+      );
+      var s = new Personagem(
+        "Sith",
+        "Anakin Skywalker",
+        "./src/Anakin_Skywalker.png",
+        "border-blue-500",
+        DefinirForca()
+      );
+
+      var ShadowJedi = document.querySelector(".jedi");
+      var ShadowSith = document.querySelector(".sith");
+
+      function ExibirPersonagem() {
+        document.querySelectorAll(".pontuacao").forEach(function (element, index) {
+              element.classList.add("slide-in");
+              NomeJedi.style.display = "";
+              NomeSith.style.display = "";
+
+            if (j.Forca > s.Forca) {
+
+              NomeJedi.innerHTML = j.Nome;
+              TipoJedi.innerHTML = `<b>Tipo:</b> ${j.Tipo} |`;
+              ColorJedi.classList.add(j.Color);
+              ForcaJedi.innerHTML = `<b>Força:</b> ${j.Forca}`;
+
+              NomeSith.innerHTML = s.Nome;
+              TipoSith.innerHTML = `<b>Tipo:</b> ${s.Tipo} |`;
+              ColorSith.classList.add(s.Color);
+              ForcaSith.innerHTML = `<b>Força:</b> ${s.Forca}`;
+
+              ShadowJedi.classList.add("red-shadow");
+              ShadowSith.classList.remove("blue-shadow");
+            } else if (s.Forca > j.Forca) {
+              ShadowSith.classList.add("blue-shadow");
+              ShadowJedi.classList.remove("red-shadow");
+              
+              NomeJedi.innerHTML = j.Nome;
+              TipoJedi.innerHTML = `<b>Tipo:</b> ${j.Tipo} |`;
+              ColorJedi.classList.add(j.Color);
+              ForcaJedi.innerHTML = `<b>Força:</b> ${j.Forca}`;
+
+              NomeSith.innerHTML = s.Nome;
+              TipoSith.innerHTML = `<b>Tipo:</b> ${s.Tipo} |`;
+              ColorSith.classList.add(s.Color);
+              ForcaSith.innerHTML = `<b>Força:</b> ${s.Forca}`;
+            } else {
+              ShadowJedi.classList.remove("red-shadow");
+              ShadowSith.classList.remove("blue-shadow");
+              NomeJedi.innerHTML = j.Nome;
+              TipoJedi.innerHTML = `<b>Tipo:</b> ${j.Tipo} |`;
+              ColorJedi.classList.add(j.Color);
+              ForcaJedi.innerHTML = `${j.Forca} | <b>Empate</b>`;
+
+              NomeSith.innerHTML = s.Nome;
+              TipoSith.innerHTML = `<b>Tipo:</b> ${s.Tipo} |`;
+              ColorSith.classList.add(s.Color);
+              ForcaSith.innerHTML = `${s.Forca} | <b>Empate</b>`;
+            }
+          });
+        document.querySelectorAll(".NomeDoDesafiante").forEach(function (element, index) {
+            element.classList.add("slide-in");
+          });
+        // Alterar o src da imagem com base nos dados do personagem
+        document.getElementById("j-img").src = j.Avatar;
+        document.getElementById("s-img").src = s.Avatar;
+      }
+
+      function Duelar() {
+        document.querySelectorAll(".slide-in").forEach(function (element) {
+          element.classList.remove("slide-in");
+        });
+        ExibirPersonagem();
+      }
+   
+    </script>
+  </body>
+</html>
