@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StarWars Duelo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+ <!-- versão completa do código no github, la tem o estilo css -->
+    <script>
+      function Duelar() {
+        var Jedi = 0;
+        var Sith = 0;
+        // Score do Jedi
+        var ScoreJedi = document.getElementById("jedi");
+        // Sombra da div do Jedi
+        var ShadowJedi = document.querySelector(".jedi");
+
+        // Score do Sith
+        var ScoreSith = document.getElementById("sith");
+        // Sombra da div do Sith
+        var ShadowSith = document.querySelector(".sith");
+
+        for (i = 0; i <= 3; i++) {
+          Jedi += Math.floor(Math.random() * 6 + 1);
+          Sith += Math.floor(Math.random() * 6 + 1);
+        }
+        if (Jedi > Sith) {
+          ScoreJedi.innerHTML = `<p><span class="font-bold">Vencedor:</span> ${Jedi} Pontos</p>`;
+          ScoreSith.innerHTML = `<p><span class="font-bold">Perdedor:</span> ${Sith} Pontos</p>`;
+          ShadowJedi.classList.add("red-shadow");
+          ShadowSith.classList.remove("blue-shadow");
+
+        } else if (Sith > Jedi) {
+          ScoreSith.innerHTML = `<p><span class="font-bold">Vencedor:</span> ${Sith} Pontos</p>`;
+          ShadowSith.classList.add("blue-shadow");
+          ShadowJedi.classList.remove("red-shadow");
+          ScoreJedi.innerHTML = `<p><span class="font-bold">Perdedor:</span> ${Jedi} Pontos</p>`;
+          
+        } else {
+          ScoreSith.innerHTML = `<p><span class="font-bold">Empate:</span> ${Sith} Pontos</p>`;
+          ScoreJedi.innerHTML = `<p><span class="font-bold">Empate:</span> ${Jedi} Pontos</p>`;
+          ShadowJedi.classList.remove("red-shadow");
+          ShadowSith.classList.remove("blue-shadow");
+        }
+      }
+    </script>
+  </head>
+  <body class="bg-gray-900 flex justify-center items-center h-screen">
+    <main class="border  rounded-md border-gray-800 p-6 shadow-xl">
+      <h1 class="text-center text-4xl font-bold text-white mb-4 title">Star Wars</h1>
+
+      <div class="container flex gap-4  ">
+        <div
+          class="jedi flex flex-col text-white bg-gray-800 hover:bg-gray-700 p-4 content-center justify-center items-center rounded-md gap-2"
+        >
+          <div class="flex content-center justify-center items-center gap-2">
+            <img
+              src="./src/Obi-wan.jpeg"
+              class="rounded-full border-red-500 border-2 object-cover h-20 w-20"
+            />
+            <p class="text-center font-bold NomeDoDesafiante">Obi wan</p>
+          </div>
+          <div class="pontuacao" id="jedi"></div>
+        </div>
+
+        <div
+          class="sith as flex flex-col text-white bg-gray-800 hover:bg-gray-700 p-4 content-center justify-center items-center rounded-md gap-2"
+        >
+          <div class="flex content-center justify-center items-center gap-2">
+            <img
+              src="./src/Anakin_Skywalker.png"
+              class="rounded-full border-blue-500 border-2 object-cover h-20 w-20"
+            />
+            <p class="text-center font-bold NomeDoDesafiante">
+              Anakin Skywalker
+            </p>
+          </div>
+          <div class="pontuacao" id="sith"></div>
+        </div>
+      </div>
+      <div class="container flex mt-4">
+        <button
+          class="bg-green-700 hover:bg-green-500 text-white font-bold p-2 rounded-md w-full shadow duelar-button"
+          onclick="Duelar()"
+        >
+          <i class="bi bi-repeat"></i> Duelar</button>
+      </div>
+    </main>
+  </body>
+</html>
